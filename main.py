@@ -1,24 +1,32 @@
 import numpy as np
 import cv2
 
+#This is a function form opencv that is used for capturing video from camera
+#The parameter 1 specifies which camera to use (O would also be possible for a single camera)
 cap = cv2.VideoCapture(1)
+
+#This is the Width-Height-Threshold parameter,
 whT = 320
 confThreshold = 0.5
 nmsThreshold = 0.3
 
-classesFile = 'coco.names'
+classesFile = 'coco.names'  #File that contains the names of the objects that can be detected
+
 classNames = []
-with open(classesFile,'rt') as f:
+
+#Opening the text file for reading (rt)
+with open(classesFile,'rt') as f:  
     classNames = f.read().rstrip('\n').split('\n')
 #print(classNames)
 #print(len(classNames))
 
-modelConfiguration = 'yolov3-320.cfg'
+modelConfiguration = 'yolov3-320.cfg' #This config is a yolov3 model with a image size of 320x320
 modelWeights = 'yolov3.weights'
 
-net = cv2.dnn.readNetFromDarknet(modelConfiguration, modelWeights)
+#net : the loaded model
+net = cv2.dnn.readNetFromDarknet(modelConfiguration, modelWeights) # This loads and initializes a deep neural network model from Darknet
 net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
-net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
+net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU) # The target is the hardware (CPU) platform that is used to perform computations for the DNN model. 
 
 def findObjects(outputs, img):
     hT, wT, cT = img.shape
