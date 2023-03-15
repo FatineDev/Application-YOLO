@@ -1,9 +1,12 @@
 import numpy as np
 import cv2
 
+
+# Create a VideoCapture object
+cap = cv2.VideoCapture(1)
 #This is a function form opencv that is used for capturing video from camera
 #The parameter 1 specifies which camera to use (O would also be possible for a single camera)
-cap = cv2.VideoCapture(1)
+
 
 #This is the Width-Height-Threshold parameter,
 whT = 320
